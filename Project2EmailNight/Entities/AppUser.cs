@@ -1,0 +1,12 @@
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace Project2EmailNight.Entities
+{
+    public class AppUser : IdentityUser
+    {
+        public string Name { get; set; }
+        public string SurName { get; set; }
+        public string? ImageUrl { get; set; }
+        public string? About { get; set; }
+    }
+}
