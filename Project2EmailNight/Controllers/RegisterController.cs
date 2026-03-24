@@ -63,7 +63,7 @@ namespace Project2EmailNight.Controllers
                 using (SmtpClient client = new SmtpClient())
                 {
                     client.Connect("smtp.gmail.com", 587, false);
-                    client.Authenticate("orcunozsen12@gmail.com", "ekfm edkf ngfm onxw");
+                    client.Authenticate("orcunozsen12@gmail.com", "buraya kod");
                     client.Send(mimeMessage);
                     client.Disconnect(true);
                 }
