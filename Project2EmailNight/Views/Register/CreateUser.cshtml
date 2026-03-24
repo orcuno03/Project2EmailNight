@@ -1,30 +1,165 @@
 ﻿@model Project2EmailNight.Dtos.UserRegisterDto
-
 @{
-    Layout = null;
+	Layout = null;
 }
 
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="container">
-    <form method="post">
-        <br /><br />
-        <label>Adınız</label>
-        <input type="text" class="form-control" asp-for="Name"/>
-        <br />
-        <label>Soyadınız</label>
-        <input type="text" class="form-control" asp-for="SurName"/>
-        <br />
-        <label>Kullanıcı Adınız</label>
-        <input type="text" class="form-control" asp-for="Username"/>
-        <br />
-        <label>Email Adresi</label>
-        <input type="text" class="form-control" asp-for="Email"/>
-        <br />
-        <label>Şifreniz</label>
-        <input type="text" class="form-control" required asp-for="Password"/>
-        <br />
-        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-        <button class="btn btn-primary">Kayıt Ol</button>
-    </form>
-</div>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<title>Register - Email Project</title>
+	<link rel="icon" href="~/vertical/assets/images/favicon-32x32.png" type="/image/png" />
+	<link rel="stylesheet" href="~/vertical/assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto&display=swap" />
+	<link rel="stylesheet" href="~/vertical/assets/css/icons.css" />
+	<link rel="stylesheet" href="~/vertical/assets/css/app.css" />
+
+	<style>
+		/* Temanın sabit 100vh yüksekliğini ezip, içeriğe göre uzamasını sağlıyoruz */
+		html, body, .bg-register, .wrapper {
+			height: auto !important;
+			min-height: 100vh !important;
+			overflow-x: hidden;
+		}
+
+		/* Arka planın scroll ederken bozulmaması için */
+		.bg-register {
+			background-attachment: fixed !important;
+		}
+	</style>
+</head>
+
+<body class="bg-register">
+	<div class="wrapper">
+		<div class="section-authentication-register d-flex justify-content-center py-5">
+			<div class="row">
+				<div class="col-12 col-lg-10 mx-auto">
+					<div class="card radius-15 overflow-hidden">
+						<div class="row g-0">
+							<div class="col-xl-6">
+								<div class="card-body p-md-5">
+									<div class="text-center">
+										<img src="~/vertical/assets/images/logo-icon.png" width="80" alt="">
+										<h3 class="mt-4 font-weight-bold">Hesap Oluştur</h3>
+									</div>
+									<div class="">
+										<div class="form-body">
+											<form class="row g-3" method="post" asp-controller="Register" asp-action="CreateUser">
+												<div class="col-sm-6">
+													<label asp-for="Name" class="form-label">Ad</label>
+													<input type="text" asp-for="Name" class="form-control" placeholder="Adınız">
+													<span asp-validation-for="Name" class="text-danger"></span>
+												</div>
+												<div class="col-sm-6">
+													<label asp-for="SurName" class="form-label">Soyad</label>
+													<input type="text" asp-for="SurName" class="form-control" placeholder="Soyadınız">
+													<span asp-validation-for="SurName" class="text-danger"></span>
+												</div>
+												<div class="col-12">
+													<label asp-for="Username" class="form-label">Kullanıcı Adı</label>
+													<input type="text" asp-for="Username" class="form-control" placeholder="Kullanıcı Adı Belirleyin">
+													<span asp-validation-for="Username" class="text-danger"></span>
+												</div>
+												<div class="col-12">
+													<label asp-for="Email" class="form-label">Email Adresi</label>
+													<input type="email" asp-for="Email" class="form-control" placeholder="ornek@kullanici.com">
+													<span asp-validation-for="Email" class="text-danger"></span>
+												</div>
+												<div class="col-12">
+													<label asp-for="Password" class="form-label">Şifre</label>
+													<div class="input-group" id="show_hide_password">
+														<input type="password" asp-for="Password" class="form-control border-end-0" placeholder="Şifrenizi Girin">
+														<a href="javascript:;" class="input-group-text bg-transparent"><i class="bx bx-hide"></i></a>
+													</div>
+													<span asp-validation-for="Password" class="text-danger"></span>
+												</div>
+
+												<div class="col-12">
+													<div class="form-check form-switch">
+														<input class="form-check-input" type="checkbox" asp-for="AcceptTerms" id="flexSwitchCheckChecked">
+														<label class="form-check-label" for="flexSwitchCheckChecked">
+															<a href="javascript:;" data-bs-toggle="modal" data-bs-target="#termsModal">Kullanım Şartları ve Gizlilik Politikası</a>'nı okudum ve kabul ediyorum.
+														</label>
+													</div>
+													<span asp-validation-for="AcceptTerms" class="text-danger"></span>
+												</div>
+
+												<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+												<div class="col-12">
+													<div class="d-grid">
+														<button type="submit" class="btn btn-primary"><i class="bx bx-user me-1"></i>Kayıt Ol</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-6 bg-login-color d-flex align-items-center justify-content-center">
+								<img src="~/vertical/assets/images/login-images/register-frent-img.jpg" class="img-fluid" alt="...">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="termsModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Kullanım Şartları ve Gizlilik Politikası</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="max-height: 60vh; overflow-y: auto; text-align: justify;">
+					<h5 class="text-primary font-weight-bold">1. Kullanım Şartları</h5>
+					<p><strong>1.1. Hizmetin Amacı:</strong> Bu platform, kullanıcıların güvenli bir şekilde e-posta gönderip almasını, depolamasını ve yönetmesini sağlayan bir e-posta istemci hizmetidir. Kayıt olan her kullanıcı bu hizmetten kişisel veya kurumsal iletişim amacıyla yararlanabilir.</p>
+
+					<p><strong>1.2. Kullanıcı Sorumlulukları:</strong> Kullanıcı, platformu yasalara aykırı eylemler, <strong>spam (istenmeyen e-posta) gönderimi</strong>, oltalama (phishing) saldırıları, zararlı yazılım dağıtımı veya 3. şahısları rahatsız edici amaçlarla kullanamaz. Hesap güvenliği ve şifre gizliliği tamamen kullanıcının sorumluluğundadır.</p>
+
+					<p><strong>1.3. Hizmetin Durdurulması ve İptali:</strong> Platform kurallarına, özellikle anti-spam politikalarına uyulmaması durumunda, sistem yöneticileri önceden haber vermeksizin kullanıcı hesabını askıya alma, e-posta gönderimini kısıtlama veya hesabı kalıcı olarak silme hakkını saklı tutar.</p>
+
+					<hr class="my-4">
+
+					<h5 class="text-primary font-weight-bold">2. Gizlilik Politikası</h5>
+					<p><strong>2.1. Toplanan Veriler:</strong> Kayıt aşamasında sağladığınız ad, soyad, e-posta adresi ile platformu kullanımınız sırasında oluşan iletişim meta verileri ve log kayıtları (IP adresi, giriş zamanları) güvenli veritabanlarımızda saklanmaktadır.</p>
+
+					<p><strong>2.2. Verilerin Kullanımı:</strong> Verileriniz yalnızca size sorunsuz bir e-posta hizmeti sunabilmek, hesabınızı korumak (örn: çift aşamalı doğrulama kodları) ve teknik destek sağlamak amacıyla kullanılır. İletişim içerikleriniz şifrelenerek saklanır ve yasal bir zorunluluk olmadıkça <strong>hiçbir 3. şahıs, kurum veya reklam verenle paylaşılmaz.</strong></p>
+
+					<p><strong>2.3. Veri Güvenliği:</strong> Platformumuz, kullanıcı verilerini ve mesaj içeriklerini korumak için güncel endüstri standartlarında şifreleme ve güvenlik protokolleri (SSL/TLS) kullanır.</p>
+
+					<div class="alert alert-warning mt-3" role="alert">
+						<small><em>"Kayıt Ol" butonuna basarak bu platformun Kullanım Şartları'nı ve Gizlilik Politikası'nı okuduğunuzu, anladığınızı ve yasal olarak bağlayıcı olduğunu kabul etmiş olursunuz.</em></small>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="~/vertical/assets/js/jquery.min.js"></script>
+	<script src="~/vertical/assets/js/bootstrap.bundle.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$("#show_hide_password a").on('click', function (event) {
+				event.preventDefault();
+				if ($('#show_hide_password input').attr("type") == "text") {
+					$('#show_hide_password input').attr('type', 'password');
+					$('#show_hide_password i').addClass("bx-hide");
+					$('#show_hide_password i').removeClass("bx-show");
+				} else if ($('#show_hide_password input').attr("type") == "password") {
+					$('#show_hide_password input').attr('type', 'text');
+					$('#show_hide_password i').removeClass("bx-hide");
+					$('#show_hide_password i').addClass("bx-show");
+				}
+			});
+		});
+	</script>
+</body>
+</html>
