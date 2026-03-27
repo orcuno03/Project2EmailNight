@@ -42,7 +42,7 @@ namespace Project2EmailNight.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, userLoginDto.Password, false, false);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index", "Profile");
+                        return RedirectToAction("Inbox", "Message");
                     }
                 }
             }

@@ -1,0 +1,333 @@
+﻿@model Project2EmailNight.Entities.Message
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>@Model.Subject - MailApp</title>
+    <link rel="icon" href="~/vertical/assets/images/favicon-32x32.png" type="image/png" />
+    <link href="~/vertical/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <link href="~/vertical/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="~/vertical/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/vertical/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto&display=swap" />
+    <link rel="stylesheet" href="~/vertical/assets/css/icons.css" />
+    <link rel="stylesheet" href="~/vertical/assets/css/app.css" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
+    <style>
+        .sidebar-wrapper {
+            display: none !important;
+        }
+
+        .top-header {
+            left: 0 !important;
+            width: 100% !important;
+            border-bottom: 1px solid #e4e4e4;
+        }
+
+        body {
+            background-color: #f4f6f9 !important;
+        }
+
+        .page-wrapper {
+            margin-left: 0 !important;
+            margin-top: 60px !important;
+            padding: 20px !important;
+        }
+
+        .page-content-wrapper, .page-content {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .email-wrapper {
+            height: calc(100vh - 100px) !important;
+            width: 100% !important;
+            margin: 0 !important;
+            border: 1px solid #e4e4e4 !important;
+            border-radius: 10px !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03) !important;
+            background-color: #ffffff !important;
+            overflow: hidden;
+        }
+
+        .email-sidebar {
+            border-right: 1px solid #e4e4e4 !important;
+            background: #fff !important;
+            height: 100% !important;
+            overflow-y: auto !important;
+        }
+
+        .email-navigation {
+            height: auto !important;
+        }
+
+        .email-header {
+            border-bottom: 1px solid #e4e4e4 !important;
+            background: #fff !important;
+            height: 60px !important;
+        }
+
+        .email-content {
+            background: #fff !important;
+            height: calc(100% - 60px) !important;
+            overflow-y: auto !important;
+            padding: 20px;
+        }
+
+        .btn-primary {
+            background-color: #673ab7 !important;
+            border-color: #673ab7 !important;
+        }
+
+            .btn-primary:hover {
+                background-color: #552fa8 !important;
+                border-color: #552fa8 !important;
+            }
+
+        .text-primary {
+            color: #673ab7 !important;
+        }
+
+        .bg-primary {
+            background-color: #673ab7 !important;
+        }
+
+        .list-group-item.active {
+            background-color: #f3e5f5 !important;
+            color: #673ab7 !important;
+            border-left: 4px solid #673ab7 !important;
+            border-color: transparent !important;
+        }
+
+        .email-navigation .list-group-item {
+            padding: 10px 20px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <header class="top-header">
+            <nav class="navbar navbar-expand">
+                <div class="left-topbar d-flex align-items-center">
+                    <img src="~/vertical/assets/images/logo-icon.png" width="30" alt="" class="ms-3" />
+                    <h4 class="logo-text ms-2 mb-0 text-dark">MailApp</h4>
+                </div>
+
+                <div class="flex-grow-1 search-bar">
+                    <form method="get" action="/Message/Search" class="input-group">
+                        <input type="text" name="query" class="form-control" placeholder="Maillerde Ara..." value="@Context.Request.Query["queryStr"]" />
+                        <button class="btn btn-search" type="submit"><i class="lni lni-search-alt"></i></button>
+                    </form>
+                </div>
+
+                <div class="right-topbar ms-auto">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown dropdown-user-profile">
+                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
+                                <div class="d-flex user-box align-items-center">
+                                    <div class="user-info text-end me-2">
+                                        <p class="user-name mb-0 text-dark font-weight-bold">@ViewBag.CurrentUser.Name @ViewBag.CurrentUser.SurName</p>
+                                        <p class="designattion mb-0 text-muted">Çevrimiçi</p>
+                                    </div>
+                                    <img src="@(!string.IsNullOrEmpty(ViewBag.CurrentUser.ImageUrl) ? ViewBag.CurrentUser.ImageUrl : "/vertical/assets/images/avatars/avatar-1.png")" class="user-img" alt="user avatar">
+                                </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profilim</span></a>
+                                <div class="dropdown-divider mb-0"></div>
+                                <a class="dropdown-item" href="javascript:;"><i class="bx bx-power-off"></i><span>Çıkış Yap</span></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <div class="page-wrapper">
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    <div class="email-wrapper">
+
+                        <div class="email-sidebar">
+                            <div class="email-sidebar-header d-grid">
+                                <a href="javascript:;" class="btn btn-primary compose-mail-btn"><i class='bx bx-plus me-2'></i> Yeni Mesaj</a>
+                            </div>
+                            <div class="email-sidebar-content">
+                                <div class="email-navigation">
+                                    <div class="list-group list-group-flush">
+                                        <a href="/Message/Inbox" class="list-group-item d-flex align-items-center"><i class='bx bxs-inbox me-3 font-20'></i><span>Gelen Kutusu</span> @if(ViewBag.InboxCount > 0){
+                                        <span class="badge bg-primary rounded-pill ms-auto">@ViewBag.InboxCount</span>
+                                                                                }
+</a>
+                                        <a href="/Message/Starred" class="list-group-item d-flex align-items-center"><i class='bx bxs-star me-3 font-20 text-warning'></i><span>Yıldızlılar</span> @if(ViewBag.StarredCount > 0){
+                                        <span class="badge bg-primary rounded-pill ms-auto">@ViewBag.StarredCount</span>
+                                                                                }
+</a>
+                                        <a href="/Message/SendBox" class="list-group-item d-flex align-items-center"><i class='bx bxs-send me-3 font-20 text-info'></i><span>Gönderilenler</span> @if(ViewBag.SendBoxCount > 0){
+                                        <span class="badge bg-primary rounded-pill ms-auto">@ViewBag.SendBoxCount</span>
+                                                                                }
+</a>
+                                        <a href="/Message/Drafts" class="list-group-item d-flex align-items-center"><i class='bx bxs-file-blank me-3 font-20 text-secondary'></i><span>Taslaklar</span> @if(ViewBag.DraftsCount > 0){
+                                        <span class="badge bg-primary rounded-pill ms-auto">@ViewBag.DraftsCount</span>
+                                                                                }
+</a>
+                                        <a href="/Message/Spam" class="list-group-item d-flex align-items-center"><i class='bx bxs-info-circle me-3 font-20 text-danger'></i><span>Spam</span> @if(ViewBag.SpamCount > 0){
+                                        <span class="badge bg-primary rounded-pill ms-auto">@ViewBag.SpamCount</span>
+                                                                                }
+</a>
+                                        <a href="/Message/Trash" class="list-group-item d-flex align-items-center"><i class='bx bxs-trash-alt me-3 font-20 text-secondary'></i><span>Çöp Kutusu</span> @if(ViewBag.TrashCount > 0){
+                                        <span class="badge bg-primary rounded-pill ms-auto">@ViewBag.TrashCount</span>
+                                                                                }
+</a>
+                                    </div>
+                                    <div class="list-group list-group-flush mt-1">
+                                        <div class="list-group-item text-muted" style="background: transparent; border: none; font-size: 11px; font-weight: bold; letter-spacing: 1px;"><i class="bx bx-folder me-1"></i> KATEGORİLER</div>
+                                        <a href="/Message/Category/İş" class="list-group-item d-flex align-items-center"><i class='bx bxs-circle me-3 font-14' style="color: #673ab7;"></i><span>İş</span> @if(ViewBag.IsCount > 0){
+                                        <span class="badge bg-primary rounded-pill ms-auto">@ViewBag.IsCount</span>
+                                                                                }
+</a>
+                                        <a href="/Message/Category/Aile" class="list-group-item d-flex align-items-center"><i class='bx bxs-circle me-3 font-14 text-success'></i><span>Aile</span> @if(ViewBag.AileCount > 0){
+                                        <span class="badge bg-success rounded-pill ms-auto">@ViewBag.AileCount</span>
+                                                                                }
+</a>
+                                        <a href="/Message/Category/Eğitim" class="list-group-item d-flex align-items-center"><i class='bx bxs-circle me-3 font-14 text-danger'></i><span>Eğitim</span> @if(ViewBag.EgitimCount > 0){
+                                        <span class="badge bg-danger rounded-pill ms-auto">@ViewBag.EgitimCount</span>
+                                                                                }
+</a>
+                                        <a href="/Message/Category/Sosyal" class="list-group-item d-flex align-items-center"><i class='bx bxs-circle me-3 font-14 text-warning'></i><span>Sosyal</span> @if(ViewBag.SosyalCount > 0){
+                                        <span class="badge bg-warning rounded-pill ms-auto">@ViewBag.SosyalCount</span>
+                                                                                }
+</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="email-header d-xl-flex align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="email-toggle-btn"><i class='bx bx-menu'></i></div>
+                                <a href="javascript:history.back()" class="btn btn-white ms-2" title="Geri Dön"><i class='bx bx-arrow-back me-0'></i></a>
+                                <button type="button" class="btn btn-white ms-2" onclick="location.reload();" title="Yenile"><i class='bx bx-refresh me-0'></i></button>
+                                <a href="/Message/MoveToTrash/@Model.MessageId" class="btn btn-white ms-2" title="Sil (Çöpe At)"><i class='bx bx-trash me-0'></i></a>
+                            </div>
+                            <div class="flex-grow-1 mx-xl-3 my-2 my-xl-0"></div>
+                            <div class="ms-auto d-flex align-items-center">
+                                <button class="btn btn-sm btn-light fw-bold text-muted">Detay Görünümü</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content">
+                            <div class="d-flex align-items-center mb-4 border-bottom pb-4">
+                                <div class="bg-light text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold me-3 shadow-sm" style="width: 55px; height: 55px; font-size: 24px; border: 1px solid #673ab7;">
+                                    @Model.SenderEmail.Substring(0, 1).ToUpper()
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-1 text-dark fw-bold">
+                                        @Model.Subject
+                                        @if (!string.IsNullOrEmpty(Model.Category))
+                                        {
+                                            string badgeClass = "bg-primary";
+                                            if (Model.Category == "Aile") badgeClass = "bg-success";
+                                            else if (Model.Category == "Eğitim") badgeClass = "bg-danger";
+                                            else if (Model.Category == "Sosyal") badgeClass = "bg-warning text-dark";
+
+                                            <span class="badge @badgeClass" style="font-size: 12px; vertical-align: middle;">@Model.Category</span>
+                                        }
+                                    </h4>
+                                    <p class="mb-0 text-muted" style="font-size: 15px;">Kimden: <span class="text-primary fw-bold">@Model.SenderEmail</span></p>
+                                </div>
+                                <div class="text-end">
+                                    <p class="mb-0 text-muted fw-bold">@Model.SendDate.ToString("dd MMMM yyyy, HH:mm")</p>
+                                    <div class="mt-2 text-muted font-20">
+                                        <a href="/Message/ToggleStar/@Model.MessageId"><i class='bx @(Model.IsStarred ? "bxs-star text-warning" : "bx-star text-muted") cursor-pointer me-2'></i></a>
+                                        <i class="bx bx-reply cursor-pointer me-2"></i>
+                                        <i class="bx bx-dots-vertical-rounded cursor-pointer"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-dark" style="font-size: 16px; line-height: 1.8; min-height: 250px;">
+                                @Html.Raw(Model.MessageDetail)
+                            </div>
+
+                            <div class="mt-4 pt-4 border-top">
+                                <a href="javascript:history.back()" class="btn btn-light rounded-pill px-4 shadow-sm fw-bold me-2"><i class="bx bx-reply me-1"></i> Yanıtla</a>
+                                <a href="javascript:history.back()" class="btn btn-light rounded-pill px-4 shadow-sm fw-bold"><i class="bx bx-share me-1"></i> Yönlendir</a>
+                            </div>
+                        </div>
+
+                        <div class="compose-mail-popup">
+                            <div class="card shadow-lg border-0">
+                                <div class="card-header text-white py-2 cursor-pointer" style="background-color: #673ab7;">
+                                    <div class="d-flex align-items-center">
+                                        <div class="compose-mail-title fw-bold">Yeni Mesaj</div>
+                                        <div class="compose-mail-close ms-auto font-20"><i class="bx bx-x"></i></div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <form method="post" asp-controller="Message" asp-action="CreateMessage">
+                                        <input type="hidden" name="SenderEmail" value="@ViewBag.CurrentUser.Email" />
+                                        <div class="email-form p-3">
+                                            <div class="mb-3">
+                                                <input type="email" name="ReceiverEmail" class="form-control border-0 border-bottom" placeholder="Kime (Email Adresi)" required />
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="text" name="Subject" class="form-control border-0 border-bottom" placeholder="Konu" required />
+                                            </div>
+                                            <div class="mb-3">
+                                                <select name="Category" class="form-select border-0 border-bottom text-muted" style="box-shadow: none; border-radius: 0;">
+                                                    <option value="">Kategori Seçin (Opsiyonel)</option>
+                                                    <option value="İş">İş</option>
+                                                    <option value="Aile">Aile</option>
+                                                    <option value="Eğitim">Eğitim</option>
+                                                    <option value="Sosyal">Sosyal</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 bg-white">
+                                                <textarea id="summernote" name="MessageDetail" required></textarea>
+                                            </div>
+                                            <div class="mb-0 mt-3 d-flex align-items-center">
+                                                <button type="submit" class="btn text-white rounded-pill px-4" style="background-color: #673ab7;">Gönder</button>
+                                                <button type="submit" formaction="/Message/SaveDraft" class="btn btn-light rounded-pill px-4 ms-2 border fw-bold text-muted">Taslağa Kaydet</button>
+                                                <div class="ms-auto text-muted font-20">
+                                                    <i class="bx bx-trash cursor-pointer compose-mail-close"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/vertical/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vertical/assets/js/jquery.min.js"></script>
+    <script src="~/vertical/assets/plugins/simplebar/js/simplebar.min.js"></script>
+    <script src="~/vertical/assets/plugins/metismenu/js/metisMenu.min.js"></script>
+    <script src="~/vertical/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script>
+        new PerfectScrollbar('.email-navigation');
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                placeholder: 'Mesajınızı buraya yazın...',
+                tabsize: 2, height: 200,
+                toolbar: [ ['style', ['style']], ['font', ['bold', 'italic', 'underline', 'clear']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['insert', ['link', 'picture']] ]
+            });
+        });
+    </script>
+    <script src="~/vertical/assets/js/app.js"></script>
+</body>
+</html>
