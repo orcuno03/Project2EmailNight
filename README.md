@@ -1,4 +1,4 @@
-# 📧 MailApp - ASP.NET Core 8 MVC E-Posta Yönetim Sistemi
+# 📧 MailApp - ASP.NET Core 6 MVC E-Posta Yönetim Sistemi
 
 Bu proje, **.NET 6** ve **ASP.NET Core MVC** teknolojileri kullanılarak geliştirilmiş, tam kapsamlı bir e-posta yönetim simülasyonudur. Kullanıcı dostu arayüzü ve güçlü arka plan mimarisiyle, Gmail veya Outlook benzeri bir e-posta deneyimi sunmayı amaçlamaktadır.
 
