@@ -56,7 +56,10 @@ Bu proje, **.NET 6** ve **ASP.NET Core MVC** teknolojileri kullanılarak gelişt
 <img width="1920" height="948" alt="Ekran Görüntüsü (330)" src="https://github.com/user-attachments/assets/7a3cd201-7606-4789-bd5f-ec49b7eed8ea" />
 
 **Doğrulama Kodu Göderim İşlemi:**
+<img width="1920" height="949" alt="Ekran Görüntüsü (336)" src="https://github.com/user-attachments/assets/cc0da75b-b923-44d7-8297-265a7e6b3e76" />
+
 <img width="1920" height="956" alt="Ekran Görüntüsü (331)" src="https://github.com/user-attachments/assets/fd49a136-dccb-413b-ab03-4aefd1174921" />
+
 **Aramalar Sekmesi Filtreleme İşlemi:**
 <img width="1920" height="946" alt="Ekran Görüntüsü (333)" src="https://github.com/user-attachments/assets/86505cf6-0eb9-4157-88c7-75220ab224a8" />
 **Profilim Sayfası:**
